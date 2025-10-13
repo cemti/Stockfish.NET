@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 
 namespace Stockfish.NET
@@ -30,11 +28,12 @@ namespace Stockfish.NET
                 UseShellExecute = false,
                 RedirectStandardError = true,
                 RedirectStandardInput = true,
-                RedirectStandardOutput = true
+                RedirectStandardOutput = true,
+                WindowStyle = ProcessWindowStyle.Hidden
             };
-            _process = new Process {StartInfo = _processStartInfo};
+            _process = new Process { StartInfo = _processStartInfo };
         }
-        
+
         /// <summary>
         /// 
         /// </summary>
@@ -57,7 +56,7 @@ namespace Stockfish.NET
             _process.StandardInput.WriteLine(command);
             _process.StandardInput.Flush();
         }
-        
+
         /// <summary>
         /// This method is allowing to read stdout of Stockfish process
         /// </summary>
