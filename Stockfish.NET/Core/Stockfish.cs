@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Stockfish.NET.Exceptions;
+using Stockfish.NET.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using Stockfish.NET.Exceptions;
-using Stockfish.NET.Models;
 
 namespace Stockfish.NET.Core
 {
@@ -117,17 +117,19 @@ namespace Stockfish.NET.Core
         /// <exception cref="MaxTriesException"></exception>
 		private bool isReady()
         {
-			send("isready");
-			var tries = 0;
-			while (tries < MAX_TRIES) {
-				++tries;
+            send("isready");
+            var tries = 0;
+            while (tries < MAX_TRIES)
+            {
+                ++tries;
 
-				if (_stockfish.ReadLine() == "readyok") {
-					return true;
-				}
-			}
-			throw new MaxTriesException();
-		}
+                if (_stockfish.ReadLine() == "readyok")
+                {
+                    return true;
+                }
+            }
+            throw new MaxTriesException();
+        }
 
         /// <summary>
         /// 
@@ -374,7 +376,14 @@ namespace Stockfish.NET.Core
         /// </summary>
         /// <returns></returns>
         /// <exception cref="MaxTriesException"></exception>
-        public Evaluation GetEvaluation()
+        public Evaluation GetEvaluation() => GetEvaluation(10000);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="MaxTriesException"></exception>
+        public Evaluation GetEvaluation(int time)
         {
             Evaluation evaluation = new Evaluation();
             var fen = GetFenPosition();
@@ -391,13 +400,13 @@ namespace Stockfish.NET.Core
 
             // I'm not sure this is the good way to handle evaluation of position, but why not?
             // Another way we need to somehow limit engine depth? 
-            goTime(10000);
+            goTime(time);
             var tries = 0;
             while (true)
             {
                 if (tries > MAX_TRIES)
                 {
-                    throw new MaxTriesException("tries:"+tries+">max-tries:"+MAX_TRIES);
+                    throw new MaxTriesException("tries:" + tries + ">max-tries:" + MAX_TRIES);
                 }
 
                 var data = readLineAsList();
