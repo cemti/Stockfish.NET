@@ -80,7 +80,7 @@ namespace Stockfish.NET
 
         public void Dispose()
         {
-            _process.Close();
+            _process.Kill();
         }
 
         /// <summary>
@@ -89,7 +89,7 @@ namespace Stockfish.NET
         ~StockfishProcess()
         {
             //When process is going to be destructed => we are going to close stockfish process
-            _process.Close();
+            _process.Kill();
         }
     }
 }
