@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using Stockfish.NET.Models;
+﻿using Stockfish.NET.Models;
+using System;
 
 namespace Stockfish.NET
 {
-    public interface IStockfish
+    public interface IStockfish : IDisposable
     {
         int Depth { get; set; }
         int SkillLevel { get; set; }

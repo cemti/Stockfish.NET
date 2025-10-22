@@ -441,6 +441,11 @@ namespace Stockfish.NET.Core
             }
         }
 
+        public void Dispose()
+        {
+            _stockfish.Dispose();
+        }
+
         #endregion
     }
 }

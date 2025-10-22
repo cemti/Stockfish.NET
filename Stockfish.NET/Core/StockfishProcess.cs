@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace Stockfish.NET
 {
-    internal class StockfishProcess
+    internal class StockfishProcess : IDisposable
     {
         /// <summary>
         /// Default process info for Stockfish process
@@ -69,6 +69,7 @@ namespace Stockfish.NET
             }
             return _process.StandardOutput.ReadLine();
         }
+
         /// <summary>
         /// Start stockfish process
         /// </summary>
@@ -76,6 +77,12 @@ namespace Stockfish.NET
         {
             _process.Start();
         }
+
+        public void Dispose()
+        {
+            _process.Dispose();
+        }
+
         /// <summary>
         /// This method is allowing to close Stockfish process
         /// </summary>
