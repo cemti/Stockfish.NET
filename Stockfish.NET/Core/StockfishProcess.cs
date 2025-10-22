@@ -80,7 +80,7 @@ namespace Stockfish.NET
 
         public void Dispose()
         {
-            _process.Dispose();
+            _process.Close();
         }
 
         /// <summary>
